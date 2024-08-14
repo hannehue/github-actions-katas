@@ -1,4 +1,4 @@
-name: Reuseable workflow
+name: Reuseable work
 on: 
   workflow_call:
     inputs:
@@ -15,11 +15,11 @@ on:
 jobs:
   reuseable-job:
     runs-on: ubuntu-latest
+    outputs:
+      current-time: ${{steps.time.outputs.time}}
     steps:
     - name: Greet
       run: echo "Hello ${{inputs.who-to-greet}}"
     - name: output time
       id: time
       run: echo "time=$(date)" >> $GITHUB_OUTPUT
-    outputs:
-      current-time: ${{steps.time.outputs.time}}
