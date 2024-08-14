@@ -54,7 +54,14 @@ jobs:
       with: 
         name: code
         path: .
-    - name: build docker
-      run: bash ci/build-docker-sh
-    - name: push docker
-      run: bash ci/push-docker-sh
+    - name: login to docker
+      uses: docker/login-action@v3
+      with: 
+        registry: ghcr.io
+        username: ${{ env.docker_username }}
+        password: ${{env.docker_password}}
+    - name: build and push docker
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        tags: ghcr.io/${{env.docker_username}}/micronaut-app:1.0-${{env.GIT_COMMIT}},ghcr.io/${{env.docker_username}}/micronaut-app:latest
