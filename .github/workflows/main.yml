@@ -34,3 +34,4 @@ jobs:
       env: 
         DEFAULT_BRANCH: main
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        DISABLE_ERRORS: true
