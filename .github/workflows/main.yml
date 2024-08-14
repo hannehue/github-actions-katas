@@ -66,3 +66,30 @@ jobs:
         context: app
         push: true
         tags: ghcr.io/${{env.docker_username}}/micronaut-app:1.0-${{env.GIT_COMMIT}},ghcr.io/${{env.docker_username}}/micronaut-app:latest
+    
+
+  Compnonet-test:
+    runs-on: ubuntu-latest
+    needs: [Docker-Image]
+    
+    steps:
+    - name: Download app
+      uses: actions/download-artifact@v4
+      with: 
+        name: code
+        path: .
+    - name: Execure component test
+      run: bash ci/component-test.sh
+    
+  Performance-test:
+    runs-on: ubuntu-latest
+    needs: [Docker-Image]
+    steps:
+    - name: Download app
+      uses: actions/download-artifact@v4
+      with: 
+        name: code
+        path: .
+    - name: Execure component test
+      run: bash ci/performance-test.sh
+        
